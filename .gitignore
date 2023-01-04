@@ -11,3 +11,6 @@ obj/fsac.cache
 *.pdb
 *.cache
 *.dll
+build/
+obj/
+bin/
