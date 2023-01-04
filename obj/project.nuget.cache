@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "cQApTIeEzbNba8QuI8uIuyoZu/WPLMWEF5eHFz1rUtawDaHVAECXIJk1YM2skUJudsJvShhFOFcAO6jzQ3p6vw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Samuel Gomez\\Documents\\New work\\ip2loc\\ip2loc.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Samuel Gomez\\.nuget\\packages\\fsharp.core\\6.0.7\\fsharp.core.6.0.7.nupkg.sha512"
+  ],
+  "logs": []
+}
