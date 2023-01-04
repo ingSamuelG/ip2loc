@@ -1,72 +1,32 @@
-﻿open System.Net
-open System.Net.Http
-open System.IO
+﻿open Ip2Location
 
-let isValidIPv4 (ip: string) =
-    let isValid = IPAddress.TryParse(ip)
-    isValid
 
-let fromIPtoLocationJsonFromParams ips =
-    let apiKey = "HCYFRHMCLD"
-
-    for ip in ips do
-        let isValid, parseIp = isValidIPv4 ip
-
-        if isValid then
-            let client = new HttpClient()
-
-            let response =
-                client
-                    .GetAsync(
-                        sprintf
-                            $"https://api.ip2location.com/v2/?key={apiKey}&ip={parseIp}&format=json&package=WS25&&addon=continent,country,region,city,geotargeting,country_groupings,time_zone_info&lang=zh-cn"
-                    )
-                    .Result
-
-            let content = response.Content.ReadAsStringAsync().Result
-
-            System.IO.File.WriteAllText($"./files/{ip}.json", content)
-            printfn $"Success: in the response for {parseIp}"
-        else
-            printfn $"Error: in the response for {parseIp}"
-
-let fromIPtoLocationJsonFromList () =
-    let apiKey = "HCYFRHMCLD"
-    let rows = File.ReadAllLines "./ips/ips.txt"
-
-    for ip in rows do
-        let trimIp = ip.Trim()
-        let isValid, parseIp = isValidIPv4 trimIp
-
-        if isValid then
-            let client = new HttpClient()
-
-            let response =
-                client
-                    .GetAsync(
-                        sprintf
-                            $"https://api.ip2location.com/v2/?key={apiKey}&ip={parseIp}&format=json&package=WS25&&addon=continent,country,region,city,geotargeting,country_groupings,time_zone_info&lang=zh-cn"
-                    )
-                    .Result
-
-            let content = response.Content.ReadAsStringAsync().Result
-
-            System.IO.File.WriteAllText($"./files/{ip}.json", content)
-            printfn $"Success: in the response for {parseIp}"
-        else
-            printfn $"Error: in the response for {parseIp}"
 
 [<EntryPoint>]
 let main argv =
     let option = argv.[0]
-    let param = argv |> Array.skip 1
 
     if option = "list" then
-        fromIPtoLocationJsonFromList ()
+        Fetch.fromIPtoLocationJsonFromList ()
         0
     elif option = "param" then
-        fromIPtoLocationJsonFromParams param
+        let param = argv |> Array.skip 1
+        Fetch.fromIPtoLocationJsonFromParams param
         0
+    elif option = "parse" then
+        let ty = argv.[1]
+
+        match ty with
+        | "" ->
+            printfn "Error: not type selected use domain, <other future options>"
+            1
+        | "domain" ->
+            let domain = argv.[2]
+            Parse.parseDomainbyName domain
+            0
+        | _ ->
+            printfn "Error: not a valid type,use domain, <other future options>"
+            2
     else
         printfn "Not a valid option"
         1
