@@ -14,3 +14,5 @@ obj/fsac.cache
 build/
 obj/
 bin/
+
+.fake
