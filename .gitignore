@@ -1,3 +1,13 @@
 
 *.json
 *.txt
+bin/Debug/net6.0/ip2loc.dll
+bin/Debug/net6.0/ip2loc.pdb
+obj/Debug/net6.0/ip2loc.dll
+obj/Debug/net6.0/ip2loc.fsproj.CoreCompileInputs.cache
+obj/Debug/net6.0/ip2loc.pdb
+obj/fsac.cache
+*.cache
+*.pdb
+*.cache
+*.dll
