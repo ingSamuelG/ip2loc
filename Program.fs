@@ -28,6 +28,9 @@ let main argv =
             let domain = argv.[2]
             Parse.parseNotDomain domain
             0
+        | "all" ->
+            Parse.parseAllToCsv ()
+            0
         | _ ->
             printfn "Error: not a valid type,use domain, <other future options>"
             2

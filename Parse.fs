@@ -63,6 +63,17 @@ module Parse =
             (json.GetProperty "isp").ToString())
         |> createCsvFile
 
+
+    let getAllFiles files =
+        // let filename, content = files
+        files
+        |> Array.map (fun (filePath: string, read: string) -> filePath, JsonSerializer.Deserialize<JsonElement>(read))
+        |> Array.map (fun (filePath, json: JsonElement) ->
+            getListOfIpFromFileName filePath,
+            (json.GetProperty "domain").ToString(),
+            (json.GetProperty "isp").ToString())
+        |> createCsvFile
+
     let parseDomainbyName domain =
         let folder = "./files"
         let files = readJsonFiles folder
@@ -72,4 +83,9 @@ module Parse =
         let folder = "./files"
         let files = readJsonFiles folder
         getNotDomainFiles domain files |> ignore
+
+    let parseAllToCsv () =
+        let folder = "./files"
+        let files = readJsonFiles folder
+        getAllFiles files |> ignore
 // printfn "%A" hetznerFiles
